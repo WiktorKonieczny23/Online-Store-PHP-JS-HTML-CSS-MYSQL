@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vanguard Tech</title>
     <link rel="shortcut icon" href="logo.png">
-    <link rel="stylesheet" href="ceeses.css">
+    <link rel="stylesheet" href="css2.css">
 </head>
 <body>
 <header>
@@ -28,24 +28,40 @@
 <img src="1.jpg" alt="baner" id="baner">
 </header>
 <main>
-<section id="wyszukiwanie">
-<!--Wyszukiwarka-->
-<form method="post">
-<input type="text" id="wyszukiwarka">
+<section id="kategorie">
+<form action="index.php" method="post">
+<input type="text" name="wyszukiwarka"><input type="submit" value="WYSZUKAJ">
 </form>
-</section>
-<section id="filtry">
 
 </section>
 <section id="produkty">
 <table>
 <?php
+$conn = mysqli_connect('localhost', 'root', '', 'vanguardtech');
+if(isset($_POST['wyszukiwarka'])){
+    $tresc=$_POST['wyszukiwarka'];
 
+$sql = "SELECT * FROM produkty WHERE marka LIKE '$tresc'or kategoria LIKE '$tresc' or model LIKE '$tresc'";
+$result=$conn->query($sql);
+foreach($result as $row){
+    echo "<tr><td>".$row['marka']."</td><td>".$row['model']."</td><td>".$row['cena']."PLN</td><td>".'<img src="data:image/jpeg;base64,'.base64_encode( $row['foto'] ).'" width="200" height="230"/>'."</td></tr>";
+}
+}
+$conn = mysqli_connect('localhost', 'root', '', 'vanguardtech');
+if(empty($_POST['wyszukiwarka'])){
+    $sql = "SELECT * FROM produkty";
+$result=$conn->query($sql);
+foreach($result as $row){
+    echo "<tr><td>".$row['marka']."</td><td>".$row['model']."</td><td>".$row['cena']."PLN</td><td>".'<img src="data:image/jpeg;base64,'.base64_encode( $row['foto'] ).'" width="200" height="230"/>'."</td><td>"."<a href='koszyk.php'><img src='koszyk2.png' width='100' height='100' id='koszykfoto'></a>";
+}
+}
+mysqli_close($conn);
 ?>
 </table>
 </section>
 </main>
 <footer>
+<br>
 Vanguard Tech sp. z o.o.<br>
 +48 508 342 416<br>
 biuro@vtech.pl<br>

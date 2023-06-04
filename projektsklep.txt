@@ -1,0 +1,6 @@
+sklep z podzespołami
+główna z sliderem z promocjami
+filtrowanie
+podstrona dla każdego produktu
+baza danych (jak coś kupujesz to usuwasz 1szt. z bazy)
+
